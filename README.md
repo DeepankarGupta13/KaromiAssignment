@@ -22,13 +22,14 @@ To run this project, you will need:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/carton-packaging-animation.git
+    git clone https://github.com/DeepankarGupta13/KaromiAssignment.git
     ```
-2. Navigate to the project directory:
+
+3. Run in your web browser.
     ```bash
-    cd carton-packaging-animation
+        npm install
+        npm run dev
     ```
-3. Open the `index.html` file in your web browser.
 
 ### Usage
 
@@ -37,19 +38,6 @@ To run this project, you will need:
 
 ## Technologies Used
 
-- **HTML/CSS:** For the structure and styling of the UI.
-- **JavaScript:** To handle the logic for changing dimensions and controlling animations.
+- **HTML/CSS:** For the canvas.
+- **JavaScript:** To handle the logic for changing dimensions and controlling animations and UI.
 - **THREE.js:** For rendering and animating the 3D carton model.
-- **SVG:** To create and manipulate the 2D representation of the unfolded carton.
-
-## Contributing
-
-Contributions are welcome! If you have any ideas or improvements, feel free to open an issue or submit a pull request.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE.md file for details.
-
-## Acknowledgments
-
-- Thanks to the contributors of THREE.js for making 3D web animations accessible and easy to implement.
