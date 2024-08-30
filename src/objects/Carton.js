@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import Plane from './Planes';
-import { colors } from '../utils/Constants';
+import { CHILD_DISTANCE, COLORS, ORIGIN, PLANE_COLOR, X_AXIS, Y_AXIS } from '../utils/Constants';
 import { GUI } from 'dat.gui';
 
 // creating class for basic caton which will have all the required planes in unboxed state
@@ -44,35 +44,35 @@ export default class Carton {
         const planeMetaData = this.getFacePositionDirection();
 
         // center plane at the given position
-        this.centerPlane = new Plane(this, this.length, this.height, colors[0], planeMetaData.center.direction, false);
+        this.centerPlane = new Plane(this, this.length, this.height, null, planeMetaData.center.direction, false);
         this.centerPlane.name = 'Center';
 
         // top plane
-        this.topPlane = new Plane(this, this.length, this.width, colors[1], planeMetaData.top.direction, true);
+        this.topPlane = new Plane(this, this.length, this.width, null, planeMetaData.top.direction, true);
         this.topPlane.name = 'Top';
         this.topPlane.makeParent(this.centerPlane);
         this.topPlane.setMeshPosition();
 
         // bottom plane
-        this.bottomPlane = new Plane(this, this.length, this.width, colors[2], planeMetaData.bottom.direction, true);
+        this.bottomPlane = new Plane(this, this.length, this.width, null, planeMetaData.bottom.direction, true);
         this.bottomPlane.name = 'Bottom';
         this.bottomPlane.makeParent(this.centerPlane);
         this.bottomPlane.setMeshPosition();
 
         // left Plane
-        this.leftPlane = new Plane(this, this.width, this.height, colors[3], planeMetaData.left.direction, true);
+        this.leftPlane = new Plane(this, this.width, this.height, null, planeMetaData.left.direction, true);
         this.leftPlane.name = 'Left';
         this.leftPlane.makeParent(this.centerPlane);
         this.leftPlane.setMeshPosition();
 
         // right
-        this.rightPlane = new Plane(this, this.width, this.height, colors[4], planeMetaData.right.direction, true);
+        this.rightPlane = new Plane(this, this.width, this.height, null, planeMetaData.right.direction, true);
         this.rightPlane.name = 'Right';
         this.rightPlane.makeParent(this.centerPlane);
         this.rightPlane.setMeshPosition();
 
         // right most
-        this.rightmostPlane = new Plane(this, this.length, this.height, colors[5], planeMetaData.rightMost.direction, true);
+        this.rightmostPlane = new Plane(this, this.length, this.height, null, planeMetaData.rightMost.direction, true);
         this.rightmostPlane.name = 'RightMost'
         this.rightmostPlane.makeParent(this.rightPlane);
         this.rightmostPlane.setMeshPosition();
@@ -105,34 +105,31 @@ export default class Carton {
     }
 
     setupGUI() {
-        const xAxis = new THREE.Vector3(1, 0, 0);
-        const yAxis = new THREE.Vector3(0, 1, 0);
-
         this.gui.add(this.params, 'progress', 0, 1).name('Folding Progress').onChange(() => {
             const progress = this.params.progress;
 
-            this.topPlane.setRotation(xAxis, Math.PI / 2 * progress); // Top face
-            this.bottomPlane.setRotation(xAxis.clone().negate(), Math.PI / 2 * progress); // Bottom face
-            this.leftPlane.setRotation(yAxis, Math.PI / 2 * progress); // Left face
-            this.rightPlane.setRotation(yAxis.clone().negate(), Math.PI / 2 * progress); // Right face
-            this.rightmostPlane.setRotation(yAxis.clone().negate(), Math.PI / 2 * progress); // rightMost face
+            this.topPlane.setRotation(X_AXIS, Math.PI / 2 * progress); // Top face
+            this.bottomPlane.setRotation(X_AXIS.clone().negate(), Math.PI / 2 * progress); // Bottom face
+            this.leftPlane.setRotation(Y_AXIS, Math.PI / 2 * progress); // Left face
+            this.rightPlane.setRotation(Y_AXIS.clone().negate(), Math.PI / 2 * progress); // Right face
+            this.rightmostPlane.setRotation(Y_AXIS.clone().negate(), Math.PI / 2 * progress); // rightMost face
 
-            if (this.selfRotation) this.objectsGroup.rotation.setFromRotationMatrix(new THREE.Matrix4().makeRotationAxis(yAxis, Math.PI / 3 * progress))
+            if (this.selfRotation) this.objectsGroup.rotation.setFromRotationMatrix(new THREE.Matrix4().makeRotationAxis(Y_AXIS, Math.PI / 3 * progress))
         });
     }
 
     getFacePositionDirection() {
-        const centerPlanePositionDirection = new THREE.Vector3(0, 0, 0)
+        const centerPlanePositionDirection = ORIGIN;
 
-        const topPlanePositionDirection = new THREE.Vector3(0, 0.5, 0);
+        const topPlanePositionDirection = Y_AXIS.clone().multiplyScalar(CHILD_DISTANCE);
 
-        const bottomPlanePositionDirection = new THREE.Vector3(0, -0.5, 0);
+        const bottomPlanePositionDirection = Y_AXIS.clone().negate().multiplyScalar(CHILD_DISTANCE);
 
-        const leftPlanePositionDirection = new THREE.Vector3(-0.5, 0, 0);
+        const leftPlanePositionDirection = X_AXIS.clone().negate().multiplyScalar(CHILD_DISTANCE);
 
-        const rightPlanePositionDirection = new THREE.Vector3(0.5, 0, 0);
+        const rightPlanePositionDirection = X_AXIS.clone().multiplyScalar(CHILD_DISTANCE);
 
-        const rightMostPlanePositionDirection = new THREE.Vector3(0.5, 0, 0);
+        const rightMostPlanePositionDirection = X_AXIS.clone().multiplyScalar(CHILD_DISTANCE);
 
         return {
             center: { direction: centerPlanePositionDirection },

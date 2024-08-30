@@ -1,9 +1,11 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { SCENE_COLORS } from './utils/Constants';
 
 export default class mainClass {
     constructor() {
         this.scene = new THREE.Scene();
+        this.scene.background = new THREE.Color(SCENE_COLORS);
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setSize(window.innerWidth, window.innerHeight);

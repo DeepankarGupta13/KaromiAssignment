@@ -5,7 +5,12 @@ export default class Plane {
         this.carton = carton;
 
         this.geometry = new THREE.PlaneGeometry(width, height);
-        this.material = new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide });
+        if (color) this.material = new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide });
+        else {
+            const textureLoader = new THREE.TextureLoader();
+            const texture = textureLoader.load('http://localhost:5174/planeTextureDark.jpg');
+            this.material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide});
+        }
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.pivot = new THREE.Object3D();
         this.pivot.add(this.mesh);
