@@ -30,6 +30,8 @@ export default class Carton {
         this.gui = new GUI();
         this.params = { progress: 0 };
         this.setupGUI();
+
+        this.selfRotation = true;
     }
 
     // this function will call the planes class to make planes accordingly
@@ -80,19 +82,23 @@ export default class Carton {
     updateCarton(properties) {
         let planeUpdationRequired = false;
         if (Object.prototype.hasOwnProperty.call(properties, 'width') &&
-            properties.width !== this.width) {
+        properties.width !== this.width) {
             this.width = properties.width;
             planeUpdationRequired = true;
         }
         if (Object.prototype.hasOwnProperty.call(properties, 'height') &&
-            properties.height !== this.height) {
+        properties.height !== this.height) {
             this.height = properties.height;
             planeUpdationRequired = true;
         }
         if (Object.prototype.hasOwnProperty.call(properties, 'length') &&
-            properties.length !== this.length) {
+        properties.length !== this.length) {
             this.length = properties.length;
             planeUpdationRequired = true;
+        }
+        if (Object.prototype.hasOwnProperty.call(properties, 'selfRotation') &&
+        properties.selfRotation !== this.selfRotation) {
+            this.selfRotation = properties.selfRotation;
         }
 
         if (planeUpdationRequired) this.makePlanes();
@@ -110,6 +116,8 @@ export default class Carton {
             this.leftPlane.setRotation(yAxis, Math.PI / 2 * progress); // Left face
             this.rightPlane.setRotation(yAxis.clone().negate(), Math.PI / 2 * progress); // Right face
             this.rightmostPlane.setRotation(yAxis.clone().negate(), Math.PI / 2 * progress); // rightMost face
+
+            if (this.selfRotation) this.objectsGroup.rotation.setFromRotationMatrix(new THREE.Matrix4().makeRotationAxis(yAxis, Math.PI / 3 * progress))
         });
     }
 
@@ -120,9 +128,9 @@ export default class Carton {
 
         const bottomPlanePositionDirection = new THREE.Vector3(0, -0.5, 0);
 
-        const leftPlanePositionDirection = new THREE.Vector3(-0.5, 0 , 0);
+        const leftPlanePositionDirection = new THREE.Vector3(-0.5, 0, 0);
 
-        const rightPlanePositionDirection = new THREE.Vector3(0.5, 0 , 0);
+        const rightPlanePositionDirection = new THREE.Vector3(0.5, 0, 0);
 
         const rightMostPlanePositionDirection = new THREE.Vector3(0.5, 0, 0);
 
@@ -133,6 +141,16 @@ export default class Carton {
             left: { direction: leftPlanePositionDirection },
             right: { direction: rightPlanePositionDirection },
             rightMost: { direction: rightMostPlanePositionDirection },
+        }
+    }
+
+    get selfRotation() {
+        return this._selfRotation;
+    }
+
+    set selfRotation(v) {
+        if (v !== this.selfRotation) {
+            this._selfRotation = v;
         }
     }
 }

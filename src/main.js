@@ -16,18 +16,20 @@ function initApp() {
 
     // Define the carton properties
     const cartonProperties = {
-        width: width,   // Default width
+        width: width,    // Default width
         height: height,  // Default height
-        length: length   // Default length
+        length: length,  // Default length
+        selfRotation: true, // Default rotation boolean
     };
 
     // Initialize dat.GUI
     const gui = new GUI();
 
     // Add controls to GUI for width, height, and length
-    gui.add(cartonProperties, 'width', 1, 100).name('Width').onChange(updateCarton);
-    gui.add(cartonProperties, 'height', 1, 100).name('Height').onChange(updateCarton);
-    gui.add(cartonProperties, 'length', 1, 100).name('Length').onChange(updateCarton);
+    gui.add(cartonProperties, 'width', 1, 10).name('Width').onChange(updateCarton);
+    gui.add(cartonProperties, 'height', 1, 10).name('Height').onChange(updateCarton);
+    gui.add(cartonProperties, 'length', 1, 10).name('Length').onChange(updateCarton);
+    gui.add(cartonProperties, 'selfRotation', true).name('CartonRotation').onChange(updateCarton);
 
     // Wrap updateCarton to pass cartonProperties
     function updateCarton() {
