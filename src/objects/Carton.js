@@ -21,6 +21,9 @@ export default class Carton {
 
         this.app = app;
 
+        this.objectsGroup = new THREE.Object3D();
+        this.app.scene.add(this.objectsGroup);
+
         // function to make planes such that it makes a carton
         this.makePlanes();
 
@@ -31,45 +34,68 @@ export default class Carton {
 
     // this function will call the planes class to make planes accordingly
     makePlanes() {
+
+        this.objectsGroup.clear();
         // we will create six planes as a cuboid has 6 planes
         // for now we are handling 6 faces in future n number of planes can be added
 
         const planeMetaData = this.getFacePositionDirection();
 
         // center plane at the given position
-        this.centerPlane = new Plane(this.app, this.length, this.height, colors[0], planeMetaData.center.direction, false);
+        this.centerPlane = new Plane(this, this.length, this.height, colors[0], planeMetaData.center.direction, false);
         this.centerPlane.name = 'Center';
 
         // top plane
-        this.topPlane = new Plane(this.app, this.length, this.width, colors[1], planeMetaData.top.direction, true);
+        this.topPlane = new Plane(this, this.length, this.width, colors[1], planeMetaData.top.direction, true);
         this.topPlane.name = 'Top';
         this.topPlane.makeParent(this.centerPlane);
         this.topPlane.setMeshPosition();
 
         // bottom plane
-        this.bottomPlane = new Plane(this.app, this.length, this.width, colors[2], planeMetaData.bottom.direction, true);
+        this.bottomPlane = new Plane(this, this.length, this.width, colors[2], planeMetaData.bottom.direction, true);
         this.bottomPlane.name = 'Bottom';
         this.bottomPlane.makeParent(this.centerPlane);
         this.bottomPlane.setMeshPosition();
 
         // left Plane
-        this.leftPlane = new Plane(this.app, this.width, this.height, colors[3], planeMetaData.left.direction, true);
+        this.leftPlane = new Plane(this, this.width, this.height, colors[3], planeMetaData.left.direction, true);
         this.leftPlane.name = 'Left';
         this.leftPlane.makeParent(this.centerPlane);
         this.leftPlane.setMeshPosition();
 
         // right
-        this.rightPlane = new Plane(this.app, this.width, this.height, colors[4], planeMetaData.right.direction, true);
+        this.rightPlane = new Plane(this, this.width, this.height, colors[4], planeMetaData.right.direction, true);
         this.rightPlane.name = 'Right';
         this.rightPlane.makeParent(this.centerPlane);
         this.rightPlane.setMeshPosition();
 
         // right most
-        this.rightmostPlane = new Plane(this.app, this.length, this.height, colors[5], planeMetaData.rightMost.direction, true);
+        this.rightmostPlane = new Plane(this, this.length, this.height, colors[5], planeMetaData.rightMost.direction, true);
         this.rightmostPlane.name = 'RightMost'
         this.rightmostPlane.makeParent(this.rightPlane);
         this.rightmostPlane.setMeshPosition();
 
+    }
+
+    updateCarton(properties) {
+        let planeUpdationRequired = false;
+        if (Object.prototype.hasOwnProperty.call(properties, 'width') &&
+            properties.width !== this.width) {
+            this.width = properties.width;
+            planeUpdationRequired = true;
+        }
+        if (Object.prototype.hasOwnProperty.call(properties, 'height') &&
+            properties.height !== this.height) {
+            this.height = properties.height;
+            planeUpdationRequired = true;
+        }
+        if (Object.prototype.hasOwnProperty.call(properties, 'length') &&
+            properties.length !== this.length) {
+            this.length = properties.length;
+            planeUpdationRequired = true;
+        }
+
+        if (planeUpdationRequired) this.makePlanes();
     }
 
     setupGUI() {

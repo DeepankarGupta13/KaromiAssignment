@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import mainClass from "./mainClass";
+import { GUI } from 'dat.gui';
 import Carton from "./objects/Carton";
 
 function initApp() {
@@ -12,6 +13,26 @@ function initApp() {
 
   const carton = new Carton(app, positionOfCarton, width, height, length);
   console.log('carton: ', carton);
+
+    // Define the carton properties
+    const cartonProperties = {
+        width: width,   // Default width
+        height: height,  // Default height
+        length: length   // Default length
+    };
+
+    // Initialize dat.GUI
+    const gui = new GUI();
+
+    // Add controls to GUI for width, height, and length
+    gui.add(cartonProperties, 'width', 1, 100).name('Width').onChange(updateCarton);
+    gui.add(cartonProperties, 'height', 1, 100).name('Height').onChange(updateCarton);
+    gui.add(cartonProperties, 'length', 1, 100).name('Length').onChange(updateCarton);
+
+    // Wrap updateCarton to pass cartonProperties
+    function updateCarton() {
+        carton.updateCarton(cartonProperties);
+    }
 }
 
 initApp()

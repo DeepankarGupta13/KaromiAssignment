@@ -1,8 +1,8 @@
 import * as THREE from 'three'
 
 export default class Plane {
-    constructor(app, width, height, color, direction, rotationFLag = true) {
-        this.app = app;
+    constructor(carton, width, height, color, direction, rotationFLag = true) {
+        this.carton = carton;
 
         this.geometry = new THREE.PlaneGeometry(width, height);
         this.material = new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide });
@@ -14,7 +14,7 @@ export default class Plane {
 
         this.rotationFLag = rotationFLag;
 
-        this.app.scene.add(this.pivot);
+        this.carton.objectsGroup.add(this.pivot);
 
         this.width = width;
         this.height = height;
