@@ -26,9 +26,9 @@ function initApp() {
     const gui = new GUI();
 
     // Add controls to GUI for width, height, and length
-    gui.add(cartonProperties, 'width', 1, 10).name('Width').onChange(updateCarton);
-    gui.add(cartonProperties, 'height', 1, 10).name('Height').onChange(updateCarton);
-    gui.add(cartonProperties, 'length', 1, 10).name('Length').onChange(updateCarton);
+    gui.add(cartonProperties, 'width', 1).name('Width').onChange(updateCarton);
+    gui.add(cartonProperties, 'height', 1).name('Height').onChange(updateCarton);
+    gui.add(cartonProperties, 'length', 1).name('Length').onChange(updateCarton);
     gui.add(cartonProperties, 'selfRotation', true).name('CartonRotation').onChange(updateCarton);
 
     // Wrap updateCarton to pass cartonProperties
