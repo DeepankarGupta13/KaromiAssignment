@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import mainClass from "./mainClass";
 import { GUI } from 'dat.gui';
 import Carton from "./objects/Carton";
+import ComplexPlane from './objects/ComplexPlain';
 
 function initApp() {
   const app = new mainClass()
@@ -37,4 +38,34 @@ function initApp() {
     }
 }
 
-initApp()
+function initGeomChanges() {
+    const app = new mainClass();
+
+    const position = new THREE.Vector3(0, 0, 0);
+    const ComplexPlain = new ComplexPlane(app, position);
+    console.log('ComplexPlain: ', ComplexPlain);
+
+    const camera = app.camera;
+    const scene = app.scene;
+
+    // Event listener for double-clicks to edit dimensions
+    document.addEventListener('dblclick', (event) => {
+        // Raycaster to detect which object is clicked
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(scene.children);
+
+        intersects.forEach((intersect) => {
+            if (intersect.object.userData.clickable) {
+                intersect.object.callback();
+            }
+        });
+    });
+}
+
+// initApp()
+initGeomChanges();

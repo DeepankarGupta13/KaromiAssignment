@@ -21,3 +21,7 @@ export const ORIGIN = new THREE.Vector3(0, 0, 0);
 export const PLANE_COLOR = 0x5B3E2A;
 
 export const SCENE_COLORS = 0xFAF0DC;
+
+export const WIDTH_TEXT = 'WIDTH';
+export const HEIGTH_TEXT = 'HEIGTH';
+export const RADIUS_TEXT = 'RADIUS';
