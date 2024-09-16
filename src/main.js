@@ -67,5 +67,5 @@ function initGeomChanges() {
     });
 }
 
-// initApp()
+// initApp();
 initGeomChanges();

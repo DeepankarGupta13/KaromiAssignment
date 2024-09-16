@@ -33,8 +33,17 @@ To run this project, you will need:
 
 ### Usage
 
+**To Use Carton Packacing project**
+In the src/main.js file call initApp() and comment initGeomChanges()
+![img](image.png)
 - Adjust the dimensions of the carton using the input fields provided in the UI.
 - Use the slider to control the folding and unfolding animation of the carton.
+
+**To Use Complex Geometry Alteration Project**
+In the src/main.js file call initGeomChanges() and comment initApp()
+![alt text](image-1.png)
+- Can change the geometry of the plane by altering the width, height and eacch radius.
+- double click on the text which u want to change and enter the number for that parameter and press enter this will update your parameter.
 
 ## Technologies Used
 
