@@ -24,4 +24,7 @@ export const SCENE_COLORS = 0xFAF0DC;
 
 export const WIDTH_TEXT = 'WIDTH';
 export const HEIGTH_TEXT = 'HEIGTH';
-export const RADIUS_TEXT = 'RADIUS';
+export const RADIUS_TEXT_TL = 'RADIUS_TL';
+export const RADIUS_TEXT_TR = 'RADIUS_TR';
+export const RADIUS_TEXT_BL = 'RADIUS_BL';
+export const RADIUS_TEXT_BR = 'RADIUS_BR';
