@@ -28,7 +28,7 @@ export default class Dimension {
             scene.add(textMesh);
 
             // Add double-click event listener to allow editing
-            textMesh.callback = function (event) {
+            textMesh.callback = function () {
                 textMesh.visible = false;
                 const input = document.createElement('input');
                 input.type = 'number';
