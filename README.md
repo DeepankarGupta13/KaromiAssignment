@@ -1,4 +1,3 @@
-### Karomi Technologies Assignment.
 # Carton Packaging Animation
 
 This project provides an interactive animation of a carton packaging process. Users can view the transition from a 2D unfolded carton to a fully formed 3D package. The dimensions of the package, including height, width, and length, can be adjusted through the user interface. Additionally, the animation can be controlled using a slider.
