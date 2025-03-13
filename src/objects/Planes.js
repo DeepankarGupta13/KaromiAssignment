@@ -8,7 +8,9 @@ export default class Plane {
         if (color) this.material = new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide });
         else {
             const textureLoader = new THREE.TextureLoader();
-            const texture = textureLoader.load('http://localhost:5174/planeTextureDark.jpg');
+            // const texture = textureLoader.load('http://localhost:5174/planeTextureDark.jpg');
+            // TODO: need to create a environment varaible to store the link for texture
+            const texture = textureLoader.load('https://cartonanimator.vercel.app/planeTextureDark.jpg');
             this.material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide});
         }
         this.mesh = new THREE.Mesh(this.geometry, this.material);
